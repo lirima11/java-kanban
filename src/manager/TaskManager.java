@@ -1,18 +1,21 @@
 package manager;
+import main.Task;
 import main.Epic;
 import main.Subtask;
-import main.Task;
-import java.util.List;
 
+import java.util.List;
+import java.util.concurrent.StructuredTaskScope;
 
 public interface TaskManager {
     Task createTask(Task task);
     Epic createEpic(Epic epic);
-    Subtask createSubtask(Subtask subtask);
+    StructuredTaskScope.Subtask createSubtask(StructuredTaskScope.Subtask subtask);
 
     List<Task> getAllTasks();
     List<Epic> getAllEpics();
     List<Subtask> getAllSubtasks();
+
+    Subtask createSubtask(Subtask subtask);
 
     Task getTask(int id);
     Epic getEpic(int id);

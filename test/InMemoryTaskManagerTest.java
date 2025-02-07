@@ -1,6 +1,5 @@
 package test;
 
-import main.*;
 import manager.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void createAndRetrieveTask() {
-        Task task = new Task("Task 1", "Description", TaskStatus.NEW);
+        Task task = new Task("main.Task 1", "Description", TaskStatus.NEW);
         Task createdTask = taskManager.createTask(task);
 
         Task retrievedTask = taskManager.getTask(createdTask.getId());
@@ -39,7 +38,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void createAndRetrieveEpic() {
-        Epic epic = new Epic("Epic 1", "Epic Description");
+        Epic epic = new Epic("main.Epic 1", "main.Epic Description");
         Epic createdEpic = taskManager.createEpic(epic);
 
         Epic retrievedEpic = taskManager.getEpic(createdEpic.getId());
@@ -49,8 +48,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void createAndRetrieveSubtask() {
-        Epic epic = taskManager.createEpic(new Epic("Epic", "Epic Desc"));
-        Subtask subtask = new Subtask("Subtask", "Subtask Desc", TaskStatus.NEW, epic.getId());
+        Epic epic = taskManager.createEpic(new Epic("main.Epic", "main.Epic Desc"));
+        Subtask subtask = new Subtask("main.Subtask", "main.Subtask Desc", TaskStatus.NEW, epic.getId());
         Subtask createdSubtask = taskManager.createSubtask(subtask);
 
         Subtask retrievedSubtask = taskManager.getSubtask(createdSubtask.getId());
@@ -60,7 +59,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void deletingTaskRemovesFromHistory() {
-        Task task = taskManager.createTask(new Task("Task", "Desc", TaskStatus.NEW));
+        Task task = taskManager.createTask(new Task("main.Task", "Desc", TaskStatus.NEW));
         taskManager.getTask(task.getId()); // Добавляем в историю
         taskManager.deleteTask(task.getId());
 
@@ -70,7 +69,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void deletingEpicRemovesAllSubtasks() {
-        Epic epic = taskManager.createEpic(new Epic("Epic", "Epic Desc"));
+        Epic epic = taskManager.createEpic(new Epic("main.Epic", "main.Epic Desc"));
         Subtask subtask1 = taskManager.createSubtask(new Subtask("Sub 1", "Sub Desc", TaskStatus.NEW, epic.getId()));
         Subtask subtask2 = taskManager.createSubtask(new Subtask("Sub 2", "Sub Desc", TaskStatus.NEW, epic.getId()));
 
