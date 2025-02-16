@@ -16,7 +16,6 @@ public class Main {
 
         Subtask subtask1 = new Subtask("Подзадача 1", "Описание подзадачи 1", TaskStatus.NEW, epic1.getId());
         manager.createSubtask(subtask1);
-
         printAllTasks(manager);
     }
 
