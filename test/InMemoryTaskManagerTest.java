@@ -11,8 +11,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InMemoryTaskManagerTest {
-    private TaskManager taskManager;
-    private HistoryManager historyManager;
+    public TaskManager taskManager;
+    public HistoryManager historyManager;
 
     @BeforeEach
     void setUp() {
