@@ -1,7 +1,6 @@
 package test;
 import static org.junit.jupiter.api.Assertions.*;
 import main.*;
-import manager.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -51,7 +50,7 @@ public class InMemoryHistoryManagerTest {
 
         List<Task> history = historyManager.getHistory();
         assertEquals(1, history.size(), "После удаления должна остаться одна задача.");
-        assertEquals(task2, history.get(0), "В истории должна остаться только task2.");
+        assertEquals(task2, history.getFirst(), "В истории должна остаться только task2.");
     }
 
     @Test
@@ -61,6 +60,6 @@ public class InMemoryHistoryManagerTest {
 
         List<Task> history = historyManager.getHistory();
         assertEquals(1, history.size(), "История не должна измениться.");
-        assertEquals(task1, history.get(0), "В истории должна остаться task1.");
+        assertEquals(task1, history.getFirst(), "В истории должна остаться task1.");
     }
 }

@@ -25,6 +25,7 @@ public class InMemoryTaskManagerTest {
                 }
             }
 
+
             public void deleteEpic(int id) {
                 Epic epic = epics.get(id);
                 if (epic != null) {
