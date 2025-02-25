@@ -1,24 +1,46 @@
-public class Main
-{
+import main.*;
+import manager.TaskManager;
+
+
+public class Main {
     public static void main(String[] args) {
+        TaskManager manager = Managers.getDefault();
 
-        float first = 1.20f, second = 2.45f;
+        Task task1 = new Task("Задача 1", "Описание задачи 1", TaskStatus.NEW);
+        Task task2 = new Task("Задача 2", "Описание задачи 2", TaskStatus.NEW);
 
-        System.out.println("--Before swap--");
-        System.out.println("First number = " + first);
-        System.out.println("Second number = " + second);
+        manager.createTask(task1);
+        manager.createTask(task2);
 
-        // Value of first is assigned to temporary
-        float temporary = first;
 
-        // Value of second is assigned to first
-        first = second;
+        Epic epic1 = new Epic("Эпик 1", "Описание эпика 1");
+        manager.createEpic(epic1);
 
-        // Value of temporary (which contains the initial value of first) is assigned to second
-        second = temporary;
+        Subtask subtask1 = new Subtask("Подзадача 1", "Описание подзадачи 1", TaskStatus.NEW, epic1.getId());
+        manager.createSubtask(subtask1);
 
-        System.out.println("--After swap--");
-        System.out.println("First number = " + first);
-        System.out.println("Second number = " + second);
+        printAllTasks(manager);
+    }
+
+    private static void printAllTasks(TaskManager manager) {
+        System.out.println("Список задач:");
+        for (Task task : manager.getAllTasks()) {
+            System.out.println(task);
+        }
+
+        System.out.println("Список эпиков:");
+        for (Epic epic : manager.getAllEpics()) {
+            System.out.println(epic);
+            for (Subtask subtask : manager.getAllSubtasks()) {
+                if (subtask.getEpicId() == epic.getId()) {
+                    System.out.println("--> " + subtask);
+                }
+            }
+        }
+
+        System.out.println("История просмотров задач:");
+        for (Task task : manager.getHistory()) {
+            System.out.println(task);
+        }
     }
 }
