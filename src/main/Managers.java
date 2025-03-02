@@ -1,4 +1,5 @@
 package main;
+
 import manager.InMemoryTaskManager;
 import manager.TaskManager;
 
@@ -7,7 +8,7 @@ public class Managers {
     }
 
     public static TaskManager getDefault() {
-        return (TaskManager) new InMemoryTaskManager() {
+        return new InMemoryTaskManager() {
             @Override
             public void deleteTask(int id) {
 
