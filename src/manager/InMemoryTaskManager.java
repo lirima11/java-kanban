@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class InMemoryTaskManager implements TaskManager {
-    public final Map<Integer, Task> tasks = new HashMap<>();
-    public final Map<Integer, Epic> epics = new HashMap<>();
-    public final Map<Integer, Subtask> subtasks = new HashMap<>();
-    public int idCounter = 1;
-    public final HistoryManager historyManager = Managers.getDefaultHistory(); // Менеджер истории
+    private final Map<Integer, Task> tasks = new HashMap<>();
+    private final Map<Integer, Epic> epics = new HashMap<>();
+    private final Map<Integer, Subtask> subtasks = new HashMap<>();
+    private int idCounter = 1;
+    private final HistoryManager historyManager = Managers.getDefaultHistory(); // Менеджер истории
 
     // Создание задач
     @Override
@@ -94,23 +94,28 @@ public abstract class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllTasks() {
+        for (Task task : tasks.values()) {
+            historyManager.remove(task.getId());
+        }
         tasks.clear();
     }
 
     @Override
-    public void removeAllEpics() {
-        epics.clear();
+    public void removeAllSubtasks() {
+        for (Subtask subtask : subtasks.values()) {
+            historyManager.remove(subtask.getId());
+        }
         subtasks.clear();
     }
 
     @Override
-    public void removeAllSubtasks() {
-        subtasks.clear();
+    public void removeAllEpics() {
         for (Epic epic : epics.values()) {
-            epic.getSubtaskIds().clear();
-            epic.setStatus(TaskStatus.NEW);
+            historyManager.remove(epic.getId());
         }
+        epics.clear();
     }
+
 
     @Override
     public boolean removeTaskById(int id) {
