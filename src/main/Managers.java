@@ -7,7 +7,17 @@ public class Managers {
     }
 
     public static TaskManager getDefault() {
-        return new InMemoryTaskManager(new InMemoryHistoryManager());
+        return new InMemoryTaskManager(new InMemoryHistoryManager()) {
+            @Override
+            public void deleteTask(int id) {
+
+            }
+
+            @Override
+            public void deleteEpic(int id) {
+
+            }
+        };
     }
 
     public static HistoryManager getDefaultHistory() {
