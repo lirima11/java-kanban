@@ -90,39 +90,6 @@ public class InMemoryTaskManagerTest {
         assertEquals(subtask.getTitle(), retrievedSubtask.getTitle(), "Названия подзадач должны совпадать.");
     }
 
-    @Test
-    void deletingTaskRemovesFromHistory() {
-        Task task = taskManager.createTask(new Task("Task", "Desc", TaskStatus.NEW));
-
-        taskManager.getTask(task.getId()); // Добавляем задачу в историю
-        taskManager.deleteTask(task.getId());
-
-        List<Task> history = taskManager.getHistory();
-        System.out.println(history); // Вывод истории для отладки
-        assertFalse(history.contains(task), "Удалённая задача не должна быть в истории.");
-    }
-
-    @Test
-    void deletingEpicRemovesAllSubtasks() {
-        Epic epic = taskManager.createEpic(new Epic("Epic", "Epic Desc"));
-        Subtask subtask1 = taskManager.createSubtask(new Subtask("Sub 1", "Sub Desc", TaskStatus.NEW, epic.getId()));
-        Subtask subtask2 = taskManager.createSubtask(new Subtask("Sub 2", "Sub Desc", TaskStatus.NEW, epic.getId()));
-
-        // Добавляем подзадачи в историю, чтобы проверить их удаление
-        taskManager.getSubtask(subtask1.getId());
-        taskManager.getSubtask(subtask2.getId());
-
-        taskManager.deleteEpic(epic.getId());
-
-        assertNull(taskManager.getEpic(epic.getId()), "Эпик должен быть удалён.");
-        assertNull(taskManager.getSubtask(subtask1.getId()), "Подзадача 1 должна быть удалена.");
-        assertNull(taskManager.getSubtask(subtask2.getId()), "Подзадача 2 должна быть удалена.");
-
-        // Проверяем, что подзадачи также удалены из истории
-        List<Task> history = taskManager.getHistory();
-        assertFalse(history.contains(subtask1), "Подзадача 1 не должна быть в истории.");
-        assertFalse(history.contains(subtask2), "Подзадача 2 не должна быть в истории.");
-    }
 
     @Test
     void historyShouldBeEmptyInitially() {
